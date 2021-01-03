@@ -1,4 +1,4 @@
-package org.padaiyal.mavenprojecttemplate.parameterconverters;
+package org.padaiyal.parameterconverters;
 
 import java.util.Objects;
 import org.junit.jupiter.api.extension.ParameterContext;
