@@ -103,4 +103,4 @@ Distributed under the Apache License. See [`LICENSE`](https://github.com/padaiya
 [issues-shield]: https://img.shields.io/github/issues/padaiyal/jProperties.svg?style=for-the-badge
 [issues-url]: https://github.com/padaiyal/jProperties/issues
 [license-shield]: https://img.shields.io/github/license/padaiyal/jProperties.svg?style=for-the-badge
-[license-url]: https://github.com/padaiyal/jProperties/blob/master/LICENSE.txt
+[license-url]: https://github.com/padaiyal/jProperties/blob/master/LICENSE
