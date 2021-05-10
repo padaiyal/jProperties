@@ -2,9 +2,12 @@ package tests.org.padaiyal.utilities;
 
 import java.io.IOException;
 import java.util.NoSuchElementException;
+import java.util.Properties;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.padaiyal.utilities.PropertyUtility;
 
 /**
@@ -202,6 +205,62 @@ class PropertyUtilityTest {
     Assertions.assertThrows(
         NullPointerException.class,
         () -> PropertyUtility.getTypedProperty(Integer.class, null)
+    );
+  }
+
+  /**
+   * Tests retrieving property files from a specified file.
+   *
+   * @param propertyFileName Property file to read from.
+   */
+  @ParameterizedTest
+  @CsvSource({
+      "test.properties"
+  })
+  void testGetProperties(String propertyFileName) {
+    Assertions.assertDoesNotThrow(
+        () -> PropertyUtility.addPropertyFile(PropertyUtilityTest.class, propertyFileName)
+    );
+
+    Properties actualProperties = PropertyUtility.getProperties(
+        PropertyUtilityTest.class,
+        propertyFileName
+    );
+
+    Assertions.assertNotNull(actualProperties);
+
+    Properties expectedProperties = new Properties();
+    Assertions.assertDoesNotThrow(
+        () -> expectedProperties.load(
+            PropertyUtilityTest.class
+                .getResourceAsStream(propertyFileName)
+        )
+    );
+    Assertions.assertEquals(
+        expectedProperties,
+        actualProperties
+    );
+  }
+
+  /**
+   * Tests retrieving property files from a specified file with invalid inputs.
+   *
+   * @param propertyFileName Property file to read from.
+   */
+  @ParameterizedTest
+  @CsvSource({
+      ",",
+      "nonexistent.properties"
+  })
+  void testGetPropertiesWithInvalidInputs(String propertyFileName) {
+    Assertions.assertThrows(
+        NullPointerException.class,
+        () -> PropertyUtility.getProperties(null, propertyFileName)
+    );
+
+    Assertions.assertThrows(
+        NullPointerException.class,
+        () -> PropertyUtility.getProperties(PropertyUtilityTest.class, propertyFileName)
     );
   }
 }

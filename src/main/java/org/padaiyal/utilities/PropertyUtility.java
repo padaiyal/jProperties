@@ -59,6 +59,22 @@ public class PropertyUtility {
   }
 
   /**
+   * Returns the property values in a specified file.
+   *
+   * @param cls               Class to use to load the properties file.
+   * @param propertyFileName  Property file to load.
+   * @return                  Property values.
+   */
+  public static Properties getProperties(Class<?> cls, String propertyFileName) {
+    Properties properties = new Properties();
+    properties.putAll(
+        classToPropertyFilesMap.get(cls)
+            .getOrDefault(propertyFileName, null)
+    );
+    return properties;
+  }
+
+  /**
    * Retrieves the value corresponding to the property key specified in the desired type.
    * If multiple property files contain the same key, the first property file (Decided by
    * the order in which the property file is added) in which the property is present is used.
